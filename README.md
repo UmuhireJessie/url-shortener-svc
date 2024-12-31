@@ -25,18 +25,26 @@ The following are the technologies used in this service:
 
 To set up the service locally:
 
-1. **Create a `.env` file** with at least the following variables:
+**1. Create a `.env` file with at least the following variables:**
    - DATABASE_URL
    - PROD_DATABASE_URL
    - SWAGGER_SERVER
 
-2. **Install the required packages**:
+Tip: Refer to the `.env.example` file in the repository for additional optional variables that can be included based on your setup.
+
+**2. Install the required packages:**
 
 ```bash
 npm install
 ```
 
-3. **Start the service**:
+**3. Run Database Migrations:**
+
+```bash
+npm run migrate:all
+```
+
+**4. Start the service:**
 
 ```bash
 npm run dev
@@ -44,7 +52,7 @@ npm run dev
 
 This script starts the application in development mode. You can consult `package.json` for more details on the available scripts.
 
-4. **Access the API Documentation**:
+**5. Access the API Documentation:**
 
 Open your browser and navigate to the following URL to interact with the API and view the documentation:
 
@@ -68,10 +76,10 @@ The following endpoints are available:
   
 - **GET** `/api/urls/stats/{code}`: Get the number of times a short URL has been accessed.
 
-## URL Shortener Swagger Documentation (For Reference)
+## Deployed URL Shortener Swagger Documentation
 
 For reference, here is the link to the swagger documentation of an URL Shortener APIs:  
-[Swagger Doc](http://github.com/UmuhireJessie/url-shortener-svc)
+[Swagger Doc](https://url-shortener-svc.onrender.com/api-docs)
 
 ## Author
 
