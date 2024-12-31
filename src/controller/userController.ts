@@ -1,4 +1,3 @@
-import { Request, Response } from "express";
 import bcrypt from "bcrypt";
 import UserSvc from "../service/userService";
 import { Jwt } from "../utils/jwt";

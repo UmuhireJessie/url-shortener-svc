@@ -1,4 +1,4 @@
-/users/register:
+/api/users/register:
   post:
     tags:
       - Users
@@ -31,7 +31,7 @@
       "500":
         description: Internal Server Error
 
-/users/login:
+/api/users/login:
   post:
     tags:
       - Users
@@ -61,7 +61,7 @@
       "500":
         description: Internal Server Error
         
-/users/change-password:
+/api/users/change-password:
   patch:
     tags:
       - Users
@@ -93,7 +93,7 @@
       "500":
         description: Internal Server Error
 
-/users/profile:
+/api/users/profile:
   get:
     tags:
       - Users
@@ -112,7 +112,7 @@
       "500":
         description: Internal Server Error
 
-/users/profiles:
+/api/users/profiles:
   patch:
     tags:
       - Users
@@ -141,5 +141,138 @@
         description: Bad Request
       "401":
         description: UnAauthorized
+      "500":
+        description: Internal Server Error
+
+/api/urls/shorten:
+  post:
+    tags:
+      - URL
+    summary: Shorten a URL
+    description: Create a shortened version of the provided original URL.
+    requestBody:
+      required: true
+      content:
+        application/json:
+          schema:
+            type: object
+            properties:
+              originalUrl:
+                type: string
+                example: "https://www.example.com"
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "201":
+        description: URL successfully shortened
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: success
+                shortUrl:
+                  type: string
+                  example: "http://shorturl.com/abc123"
+                data:
+                  type: object
+                  properties:
+                    originalUrl:
+                      type: string
+                      example: "https://www.example.com"
+                    shortCode:
+                      type: string
+                      example: "abc123"
+      "400":
+        description: Bad Request - Original URL is required
+      "500":
+        description: Internal Server Error
+
+/api/urls/{shortCode}:
+  get:
+    tags:
+      - URL
+    summary: Redirect to the original URL
+    description: This endpoint redirects the user to the original URL based on the short code provided. Since Swagger UI cannot follow redirects, please use a browser, Postman, or Thunder Client to test this endpoint and view the redirection in action.
+    parameters:
+      - name: shortCode
+        in: path
+        description: The short code representing the URL
+        required: true
+        schema:
+          type: string
+          example: abc123
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "301":
+        description: Moved Permanently
+        headers:
+          Location:
+            description: The original URL to redirect to
+            schema:
+              type: string
+              example: "https://www.example.com"
+      "302":
+        description: Found (Temporary Redirect)
+        headers:
+          Location:
+            description: The original URL to redirect to
+            schema:
+              type: string
+              example: "https://www.example.com"
+      "404":
+        description: URL not found
+      "500":
+        description: Internal Server Error
+
+/api/urls/stats/{code}:
+  get:
+    tags:
+      - URL
+    summary: Get statistics for a shortened URL
+    description: Retrieve statistics such as click count and original URL for a shortened URL.
+    parameters:
+      - in: path
+        name: code
+        required: true
+        schema:
+          type: string
+        description: The short code of the URL for which statistics are requested.
+    security:
+      - {}
+      - bearerAuth: []
+    responses:
+      "200":
+        description: Successfully retrieved URL statistics
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                status:
+                  type: string
+                  example: success
+                data:
+                  type: object
+                  properties:
+                    originalUrl:
+                      type: string
+                      example: "https://www.example.com"
+                    shortCode:
+                      type: string
+                      example: "abc123"
+                    clickCount:
+                      type: integer
+                      example: 42
+                shortUrl:
+                  type: string
+                  example: "http://shorturl.com/abc123"
+      "404":
+        description: URL not found
       "500":
         description: Internal Server Error

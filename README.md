@@ -18,8 +18,8 @@ The following are the technologies used in this service:
 - Node.js: https://nodejs.org/en
 - Express.js: https://expressjs.com/
 - TypeScript: https://www.typescriptlang.org/
-- PostgreSQL (or other database): https://www.postgresql.org/
-- Docker (Optional): https://www.docker.com/
+- PostgreSQL: https://www.postgresql.org/
+- Docker: https://www.docker.com/
 
 ## Service Local Development
 
@@ -55,17 +55,17 @@ API JSON-based web API (OpenAPI): [http://localhost:9000/api-docs/](http://local
 
 The following endpoints are available:
 
-- **POST** `/api/shorten`: Create a short URL from a long URL.
+- **POST** `/api/urls/shorten`: Create a short URL from a long URL.
   - **Request Body**:
     ```json
     {
-      "longUrl": "http://example.com"
+      "originalUrl": "http://example.com"
     }
     ```
 
-- **GET** `/:shortCode`: Redirect to the original URL corresponding to the short URL.
+- **GET** `/api/urls/{shortCode}`: Redirect to the original URL corresponding to the short URL.
   
-- **GET** `/api/stats/:code`: Get the number of times a short URL has been accessed.
+- **GET** `/api/urls/stats/{code}`: Get the number of times a short URL has been accessed.
 
 ## URL Shortener Swagger Documentation (For Reference)
 
