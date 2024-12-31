@@ -19,10 +19,10 @@ class Users {
         status: "success",
         data,
       });
-    } catch (error: any) {
+    } catch (err: any) {
       return res.status(500).json({
         status: "error",
-        error: error.message,
+        error: err.message,
       });
     }
   }

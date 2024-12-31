@@ -28,6 +28,7 @@ To set up the service locally:
 1. **Create a `.env` file** with at least the following variables:
    - DATABASE_URL
    - PROD_DATABASE_URL
+   - SWAGGER_SERVER
 
 2. **Install the required packages**:
 
